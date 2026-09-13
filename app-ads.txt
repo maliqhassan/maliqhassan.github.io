@@ -1,0 +1,16 @@
+# app-ads.txt — authorised sellers for Unbreakable: AppBlocker & Focus
+#
+# An IAB standard. Ad exchanges crawl this file to confirm which sellers are
+# genuinely allowed to sell this app's inventory; buyers that cannot verify a
+# publisher increasingly refuse to bid at all, which shows up as a low match
+# rate rather than as an error anywhere.
+#
+# It must be served from the ROOT of the domain listed as the developer website
+# in the Play Store listing — https://maliqhassan.github.io/app-ads.txt — not
+# from a subfolder. Google reads the website field from the listing, takes the
+# domain, and looks only there.
+#
+# Add a line for every network that sells this inventory. Today that is AdMob
+# alone; any mediation partner added later needs its own line, copied from that
+# network's own instructions.
+google.com, pub-3453858576340434, DIRECT, f08c47fec0942fa0
