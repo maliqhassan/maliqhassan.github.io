@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Evenly Split – Shared Expenses</title>
+  <meta name="description" content="Evenly splits bills with flatmates, trips and friends. Add expenses, see who owes what and settle up.">
+  <meta property="og:title" content="Evenly – Split expenses with friends">
+  <meta property="og:description" content="You’re invited to split expenses on Evenly.">
+  <meta property="og:image" content="https://maliqhassan.github.io/evenly/evenly-icon.png">
+  <link rel="icon" href="evenly-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* ------------------------------------------------------------------
+       EDIT THESE THREE LINKS
+       APK_URL  – the APK, attached to the latest GitHub release as evenly.apk
+       PLAY_URL – your Google Play listing; leave empty until the app is live
+       PAGE_URL – this page's address (the QR code points here)
+       They are set in the <script> at the bottom of the page.
+       ------------------------------------------------------------------ */
+    :root {
+      --forest: #26302A; --forest-card: #3B4A3F; --mint: #BADFC6; --ink: #1B211D;
+      --muted: #5E665F; --bg: #F4F5F3; --surface: #FFFFFF; --border: #E1E4E0; --positive: #1E7A4C;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: 'DM Sans', system-ui, sans-serif; background: var(--bg); color: var(--ink); }
+    .wrap { max-width: 960px; margin: 0 auto; padding: 32px 16px 48px; }
+    .hero { background: var(--forest); color: #fff; border-radius: 28px; padding: 32px 24px;
+            display: grid; gap: 28px; grid-template-columns: 1fr; align-items: center; }
+    @media (min-width: 760px) { .hero { grid-template-columns: 1.3fr 1fr; padding: 48px; } }
+    .brand { display: flex; align-items: center; gap: 12px; font-weight: 600; font-size: 20px; }
+    .brand img { width: 48px; height: 48px; border-radius: 12px; }
+    h1 { font-size: clamp(30px, 6vw, 44px); line-height: 1.08; margin: 18px 0 12px; letter-spacing: -0.02em; }
+    .lead { color: #AFC2B4; font-size: 17px; line-height: 1.5; margin: 0 0 24px; }
+    .btns { display: flex; flex-wrap: wrap; gap: 10px; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 48px;
+           padding: 0 22px; border-radius: 24px; font-weight: 600; font-size: 15px; text-decoration: none; border: 0; cursor: pointer; }
+    .btn-mint { background: var(--mint); color: var(--forest); }
+    .btn-outline { background: transparent; color: #fff; box-shadow: inset 0 0 0 1px rgba(255,255,255,.3); }
+    .btn[hidden] { display: none; }
+    .qr { background: #fff; border-radius: 22px; padding: 18px; text-align: center; color: var(--ink); justify-self: center; width: 100%; max-width: 280px; }
+    .qr img { width: 100%; height: auto; display: block; }
+    .qr p { margin: 10px 0 0; font-size: 13px; color: var(--muted); }
+    .invite { background: var(--surface); border: 2px solid var(--mint); border-radius: 22px; padding: 22px; margin-bottom: 18px; }
+    .invite[hidden] { display: none; }
+    .invite h2 { margin: 0 0 6px; font-size: 22px; }
+    .invite p { margin: 0 0 16px; color: var(--muted); line-height: 1.5; }
+    .invite .btn-mint { background: var(--forest); color: #fff; }
+    .invite .btn-outline { color: var(--forest); box-shadow: inset 0 0 0 1px var(--border); }
+    .steps { font-size: 14px; color: var(--muted); margin: 14px 0 0; padding-left: 18px; line-height: 1.6; }
+    .features { display: grid; gap: 12px; grid-template-columns: 1fr; margin-top: 24px; }
+    @media (min-width: 640px) { .features { grid-template-columns: 1fr 1fr; } }
+    @media (min-width: 900px) { .features { grid-template-columns: repeat(4, 1fr); } }
+    .card { background: var(--surface); border-radius: 18px; padding: 18px; }
+    .card h3 { margin: 0 0 6px; font-size: 16px; }
+    .card p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.5; }
+    .note { font-size: 13px; color: var(--muted); text-align: center; margin-top: 28px; line-height: 1.6; }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+
+    <!-- Shown only when the page is opened from an invite link (…?join=<code>) -->
+    <section class="invite" id="invite" hidden>
+      <h2>You’re invited to a group on Evenly</h2>
+      <p>Open Evenly to see the group and join. If you don’t have the app yet, install it first and then open your invite link again.</p>
+      <div class="btns">
+        <a class="btn btn-mint" id="open-app" href="#">Open in Evenly</a>
+        <a class="btn btn-outline" id="invite-download" href="#">Get the app</a>
+      </div>
+      <ol class="steps">
+        <li>Install Evenly and sign in with Google.</li>
+        <li>Come back to this link and tap <strong>Open in Evenly</strong>.</li>
+      </ol>
+    </section>
+
+    <section class="hero">
+      <div>
+        <div class="brand"><img src="evenly-icon.png" alt=""> Evenly</div>
+        <h1>Split expenses without the awkward maths.</h1>
+        <p class="lead">Add a bill, choose who shared it, and Evenly keeps one clear balance per person: for flatmates, trips, couples and teams.</p>
+        <div class="btns">
+          <a class="btn btn-mint" id="play" href="#" hidden>Get it on Google Play</a>
+          <a class="btn btn-mint" id="apk" href="#" download>Download for Android</a>
+        </div>
+      </div>
+      <div class="qr">
+        <img src="evenly-qr.svg" alt="QR code for this page">
+        <p>Scan with your phone camera to get Evenly</p>
+      </div>
+    </section>
+
+    <section class="features">
+      <div class="card"><h3>Split any way</h3><p>Equally, by exact amounts, percentages, shares or item by item.</p></div>
+      <div class="card"><h3>Know who owes what</h3><p>Green is owed to you, red is what you owe, across all your groups.</p></div>
+      <div class="card"><h3>Settle up in a tap</h3><p>Record a payment; the other person confirms and balances update for everyone.</p></div>
+      <div class="card"><h3>Made for groups</h3><p>Invite friends with a link or QR code and get notified when anything changes.</p></div>
+    </section>
+
+    <p class="note" id="apk-note">Downloading the APK? Android will ask you to allow installs from your browser the first time. Evenly needs Android 7 or newer.</p>
+    <p class="note"><a href="privacy.html">Privacy Policy</a> · <a href="terms.html">Terms of Use</a> · <a href="delete-account.html">Delete your account</a></p>
+  </main>
+
+  <script>
+    // ---- Edit these ----
+    // A fixed release tag, so other apps' releases in this repo never change it.
+    var APK_URL = 'https://github.com/maliqhassan/maliqhassan.github.io/releases/download/evenly-latest/evenly.apk';
+    var PLAY_URL = ''; // e.g. 'https://play.google.com/store/apps/details?id=com.evenlysplit.app'
+    // ---------------------
+
+    var PACKAGE = 'com.evenlysplit.app';
+    var getUrl = PLAY_URL || APK_URL;
+    var isAndroid = /android/i.test(navigator.userAgent);
+
+    if (PLAY_URL) {
+      var play = document.getElementById('play');
+      play.href = PLAY_URL; play.hidden = false;
+    }
+    document.getElementById('apk').href = APK_URL;
+    if (PLAY_URL) document.getElementById('apk').hidden = true;
+    if (PLAY_URL) document.getElementById('apk-note').hidden = true;
+
+    // Invite links look like …/evenly/?join=<code>
+    var code = (new URLSearchParams(location.search).get('join') || '').toLowerCase();
+    if (/^[a-z0-9]{10,32}$/.test(code)) {
+      document.getElementById('invite').hidden = false;
+      document.getElementById('invite-download').href = getUrl;
+      var open = document.getElementById('open-app');
+      // On Android, Chrome opens the app if it's installed, otherwise goes to the download.
+      open.href = isAndroid
+        ? 'intent://join/' + code + '#Intent;scheme=evenly;package=' + PACKAGE +
+          ';S.browser_fallback_url=' + encodeURIComponent(getUrl) + ';end'
+        : 'evenly://join/' + code;
+    }
+  </script>
+</body>
+</html>
