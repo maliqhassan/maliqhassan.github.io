@@ -1,0 +1,13 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.evenlysplit.app",
+      "sha256_cert_fingerprints": [
+        "51:18:EB:7B:78:EA:52:2E:2E:93:41:CF:03:5B:0A:39:1C:AF:DF:F6:8F:F5:55:74:EF:39:6C:26:A8:C8:CC:40",
+        "E8:99:72:45:84:86:E9:3E:19:82:55:8D:FB:FD:12:21:60:A5:8D:0B:DD:2D:2B:98:13:8E:C7:FB:D8:91:49:B4"
+      ]
+    }
+  }
+]
